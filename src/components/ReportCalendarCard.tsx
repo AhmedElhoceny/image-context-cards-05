@@ -38,67 +38,51 @@ const ReportCalendarCard = () => {
       date: 'October 24',
       daysLeft: 133,
       priority: 'medium'
-    },
-    {
-      title: 'Spend & Sample - NV SpendAndSample',
-      type: 'March 12',
-      date: 'March 12',
-      daysLeft: 272,
-      priority: 'low'
-    },
-    {
-      title: 'Spend - CMS',
-      type: 'March 31',
-      date: 'March 31',
-      daysLeft: 291,
-      priority: 'low'
     }
   ];
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-health-danger';
-      case 'medium': return 'bg-health-warning';
-      case 'low': return 'bg-health-success';
+      case 'high': return 'bg-red-500';
+      case 'medium': return 'bg-yellow-500';
+      case 'low': return 'bg-green-500';
       default: return 'bg-gray-400';
     }
   };
 
   const getPriorityTextColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'text-health-danger';
-      case 'medium': return 'text-health-warning';
-      case 'low': return 'text-health-success';
+      case 'high': return 'text-red-600';
+      case 'medium': return 'text-yellow-600';
+      case 'low': return 'text-green-600';
       default: return 'text-gray-600';
     }
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in">
-      <div className="flex items-center justify-between mb-6">
+    <div className="bg-white rounded-lg p-4">
+      <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-900">Report Calendar</h3>
-        <button className="text-primary text-sm font-medium hover:text-primary-600 transition-colors">
+        <button className="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors">
           Show more
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 max-h-72 overflow-y-auto">
         {upcomingReports.map((report, index) => (
-          <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
-            <div className="flex items-center space-x-4">
-              <div className={`w-1 h-12 rounded-full ${getPriorityColor(report.priority)}`} />
+          <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white border border-gray-100 hover:border-gray-200 transition-colors">
+            <div className="flex items-center space-x-3">
+              <div className={`w-1 h-10 rounded-full ${getPriorityColor(report.priority)}`} />
               <div>
-                <h4 className="font-medium text-gray-900">{report.title}</h4>
-                <p className="text-sm text-gray-600">{report.date}</p>
+                <h4 className="font-medium text-gray-900 text-sm">{report.title}</h4>
+                <p className="text-xs text-gray-600">{report.date}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className={`text-lg font-bold ${getPriorityTextColor(report.priority)}`}>
-                {report.daysLeft} Days Left
+              <p className={`text-sm font-bold ${getPriorityTextColor(report.priority)}`}>
+                {report.daysLeft} Days
               </p>
-              <p className="text-xs text-gray-500 mt-1">
-                Due: {report.date}
-              </p>
+              <p className="text-xs text-gray-500">Due</p>
             </div>
           </div>
         ))}

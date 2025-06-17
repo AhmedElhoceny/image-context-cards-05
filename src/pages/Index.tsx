@@ -12,60 +12,64 @@ const Index = () => {
       <DashboardHeader />
       <DashboardNav />
       
-      <main className="p-6 space-y-6">
-        {/* Quick Actions Section - Split into 2 sections */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+      <main className="max-w-7xl mx-auto p-6 space-y-6">
+        {/* Quick Actions Section */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
             {/* First Section - 60% width (3 columns) */}
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 space-y-6">
               {/* Action Buttons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
-                  <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 group">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center group-hover:bg-blue-700 transition-colors">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">Upload New File</p>
+                    <p className="font-semibold text-gray-900">Upload New File</p>
                     <p className="text-sm text-gray-600">Import data entries</p>
                   </div>
                 </button>
                 
-                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-primary-50 transition-all duration-200">
-                  <div className="w-10 h-10 bg-health-warning rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all duration-200 group">
+                  <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center group-hover:bg-orange-700 transition-colors">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                     </svg>
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">Search Records</p>
+                    <p className="font-semibold text-gray-900">Search Records</p>
                     <p className="text-sm text-gray-600">Find specific data</p>
                   </div>
                 </button>
               </div>
               
-              {/* Report Calendar under the buttons */}
-              <ReportCalendarCard />
+              {/* Report Calendar */}
+              <div className="bg-gray-50 rounded-lg p-6">
+                <ReportCalendarCard />
+              </div>
             </div>
 
             {/* Second Section - 40% width (2 columns) */}
             <div className="lg:col-span-2">
-              <RecentFilesCard />
+              <div className="bg-gray-50 rounded-lg p-6 h-full">
+                <RecentFilesCard />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Client Access Overview */}
-        <div className="w-full">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <ClientAccessCard />
         </div>
       </main>
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 px-6 py-4 mt-8">
-        <div className="flex items-center justify-between text-sm text-gray-600">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-sm text-gray-600">
           <p>G & M Health, LLC © 2025.</p>
           <p>Development</p>
         </div>
