@@ -54,55 +54,42 @@ const RecentFilesCard = () => {
     }
   ];
 
-  const [selectedRepIndex, setSelectedRepIndex] = useState(0);
-
-  const getLicenseColor = (licensed: boolean) => {
-    return licensed ? 'bg-health-success' : 'bg-health-warning';
-  };
-
   return (
-    <div className="bg-gray-50 rounded-lg p-4 h-full">
+    <div className="p-6">
       <div className="flex items-center justify-between mb-4">
-        <h4 className="font-medium text-gray-900">Rep Activities</h4>
-        <button className="text-primary text-xs font-medium hover:text-primary-600 transition-colors">
+        <h4 className="text-lg font-medium text-gray-900">Rep Activities</h4>
+        <button className="text-blue-600 text-sm hover:text-blue-700 transition-colors">
           View All
         </button>
       </div>
       
-      {/* Compact Rep List */}
-      <div className="space-y-2 max-h-64 overflow-y-auto">
+      <div className="space-y-3">
         {repActivities.map((rep, index) => (
           <div 
             key={index} 
-            className={`cursor-pointer transition-all duration-200 p-3 rounded-md border text-xs ${
-              selectedRepIndex === index 
-                ? 'border-primary bg-primary-50' 
-                : 'border-gray-200 bg-white hover:bg-gray-50'
-            }`}
-            onClick={() => setSelectedRepIndex(index)}
+            className="p-3 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <div className={`w-1 h-8 rounded-full ${getLicenseColor(rep.licensed)}`} />
-                <div>
-                  <h5 className="font-medium text-gray-900 text-xs">{rep.name}</h5>
-                  <p className="text-xs text-gray-600">{rep.visitDays} days visits</p>
-                  <div className="flex items-center space-x-1 mt-1">
-                    <span className="text-xs font-medium text-primary bg-primary-50 px-1.5 py-0.5 rounded">
-                      {rep.state}
-                    </span>
-                    <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${
-                      rep.licensed 
-                        ? 'text-health-success bg-green-50' 
-                        : 'text-health-warning bg-yellow-50'
-                    }`}>
-                      {rep.licensed ? 'Licensed' : 'Not Licensed'}
-                    </span>
-                  </div>
+              <div className="flex-1">
+                <div className="flex items-center space-x-2 mb-1">
+                  <h5 className="text-sm font-medium text-gray-900">{rep.name}</h5>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    rep.licensed 
+                      ? 'bg-green-100 text-green-600' 
+                      : 'bg-yellow-100 text-yellow-600'
+                  }`}>
+                    {rep.licensed ? 'Licensed' : 'Not Licensed'}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600">{rep.visitDays} days visits</p>
+                <div className="flex items-center space-x-2 mt-1">
+                  <span className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded">
+                    {rep.state}
+                  </span>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-xs font-medium text-gray-900">{rep.totalVisits}</p>
+                <p className="text-lg font-semibold text-gray-900">{rep.totalVisits}</p>
                 <p className="text-xs text-gray-600">Visits</p>
               </div>
             </div>

@@ -15,55 +15,54 @@ const Index = () => {
       <main className="max-w-7xl mx-auto p-6 space-y-6">
         {/* Quick Actions Section */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Quick Actions</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            {/* First Section - 60% width (3 columns) */}
-            <div className="lg:col-span-3 space-y-6">
-              {/* Action Buttons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 group">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center group-hover:bg-blue-700 transition-colors">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold text-gray-900">Upload New File</p>
-                    <p className="text-sm text-gray-600">Import data entries</p>
-                  </div>
-                </button>
-                
-                <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all duration-200 group">
-                  <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center group-hover:bg-orange-700 transition-colors">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold text-gray-900">Search Records</p>
-                    <p className="text-sm text-gray-600">Find specific data</p>
-                  </div>
-                </button>
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 group">
+              <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center group-hover:bg-blue-700 transition-colors">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
               </div>
-              
-              {/* Report Calendar */}
-              <div className="bg-gray-50 rounded-lg p-6">
-                <ReportCalendarCard />
+              <div className="text-left">
+                <p className="text-sm font-medium text-gray-900">Upload New File</p>
+                <p className="text-xs text-gray-500">Import data entries</p>
               </div>
-            </div>
-
-            {/* Second Section - 40% width (2 columns) */}
-            <div className="lg:col-span-2">
-              <div className="bg-gray-50 rounded-lg p-6 h-full">
-                <RecentFilesCard />
+            </button>
+            
+            <button className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all duration-200 group">
+              <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center group-hover:bg-orange-700 transition-colors">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                </svg>
               </div>
-            </div>
+              <div className="text-left">
+                <p className="text-sm font-medium text-gray-900">Search Records</p>
+                <p className="text-xs text-gray-500">Find specific data</p>
+              </div>
+            </button>
           </div>
         </div>
 
-        {/* Client Access Overview */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-          <ClientAccessCard />
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Section - Client Access Overview (2/3 width) */}
+          <div className="lg:col-span-2">
+            <ClientAccessCard />
+          </div>
+
+          {/* Right Section - Combined Cards (1/3 width) */}
+          <div className="space-y-6">
+            {/* Report Calendar */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+              <ReportCalendarCard />
+            </div>
+
+            {/* Rep Activities */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+              <RecentFilesCard />
+            </div>
+          </div>
         </div>
       </main>
 
