@@ -131,7 +131,56 @@ const ClientAccessCard = () => {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        {/* Left Side - Data Buckets */}
+        {/* Left Side - Pie Chart */}
+        <div className="flex flex-col">
+          <div className="flex-1 bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-inner border border-gray-100">
+            <div className="text-center mb-4">
+              <p className="text-sm font-medium text-gray-600">
+                {showTotalView ? 'Production vs Rule Validation' : 'Total Status Distribution'}
+              </p>
+              <button
+                onClick={handlePieClick}
+                className="mt-2 text-xs text-blue-600 hover:text-blue-700 underline transition-colors"
+              >
+                {showTotalView ? 'Show Buckets' : 'Show Total Breakdown'}
+              </button>
+            </div>
+            
+            <div className="h-80 cursor-pointer group" onClick={handlePieClick}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={getPieChartData()}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={120}
+                    paddingAngle={2}
+                    dataKey="value"
+                    className="drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300"
+                  >
+                    {getPieChartData().map((entry, index) => (
+                      <Cell 
+                        key={`cell-${index}`} 
+                        fill={entry.fill}
+                        className="hover:opacity-80 transition-opacity duration-200"
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend 
+                    verticalAlign="bottom" 
+                    height={36}
+                    iconType="circle"
+                    wrapperStyle={{ fontSize: '14px', fontWeight: '500' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side - Data Buckets */}
         <div className="space-y-4">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-800">
@@ -196,60 +245,6 @@ const ClientAccessCard = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Right Side - Pie Chart */}
-        <div className="flex flex-col">
-          <div className="flex-1 bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-inner border border-gray-100">
-            <div className="text-center mb-4">
-              <p className="text-sm font-medium text-gray-600">
-                {showTotalView ? 'Production vs Rule Validation' : 'Total Status Distribution'}
-              </p>
-              <button
-                onClick={handlePieClick}
-                className="mt-2 text-xs text-blue-600 hover:text-blue-700 underline transition-colors"
-              >
-                {showTotalView ? 'Show Buckets' : 'Show Total Breakdown'}
-              </button>
-            </div>
-            
-            <div className="h-80 cursor-pointer group" onClick={handlePieClick}>
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <defs>
-                    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-                      <dropshadow dx="0" dy="4" stdDeviation="8" floodColor="#00000020"/>
-                    </filter>
-                  </defs>
-                  <Pie
-                    data={getPieChartData()}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={120}
-                    paddingAngle={2}
-                    dataKey="value"
-                    className="drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300"
-                  >
-                    {getPieChartData().map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={entry.fill}
-                        className="hover:opacity-80 transition-opacity duration-200"
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip content={<CustomTooltip />} />
-                  <Legend 
-                    verticalAlign="bottom" 
-                    height={36}
-                    iconType="circle"
-                    wrapperStyle={{ fontSize: '14px', fontWeight: '500' }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
           </div>
         </div>
       </div>
