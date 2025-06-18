@@ -2,7 +2,7 @@
 import React from 'react';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardNav from '../components/DashboardNav';
-import RecentFilesCard from '../components/RecentFilesCard';
+import StateActivitiesCard from '../components/StateActivitiesCard';
 import ClientAccessCard from '../components/ClientAccessCard';
 import ReportCalendarCard from '../components/ReportCalendarCard';
 
@@ -44,16 +44,16 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Rep Activities and Client Access Row */}
+        {/* Client Access and Activities Row - Reversed Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Rep Activities */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-            <RecentFilesCard />
-          </div>
-
-          {/* Client Access */}
+          {/* Client Access - Now on Left */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100">
             <ClientAccessCard />
+          </div>
+
+          {/* Activities - Now on Right */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+            <StateActivitiesCard />
           </div>
         </div>
 
