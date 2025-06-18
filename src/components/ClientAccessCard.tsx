@@ -1,8 +1,10 @@
 
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import React, { useState } from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
 const ClientAccessCard = () => {
+  const [selectedClient, setSelectedClient] = useState<string | null>(null);
+
   const accessData = {
     GenPay: {
       noOfRecords: 11,
@@ -36,25 +38,38 @@ const ClientAccessCard = () => {
     }
   };
 
-  // Prepare chart data
-  const chartData = Object.entries(accessData).map(([name, data]) => ({
-    name,
-    production: data.production,
-    ruleValidation: data.ruleValidation,
-    manualMatch: data.manualMatch,
-    total: data.noOfRecords
-  }));
+  // Prepare pie chart data based on selection
+  const getPieChartData = () => {
+    if (selectedClient && accessData[selectedClient as keyof typeof accessData]) {
+      const clientData = accessData[selectedClient as keyof typeof accessData];
+      return [
+        { name: 'Production', value: clientData.production, fill: '#10B981' },
+        { name: 'Rule Valid.', value: clientData.ruleValidation, fill: '#F59E0B' },
+        { name: 'Manual', value: clientData.manualMatch, fill: '#6B7280' }
+      ].filter(item => item.value > 0);
+    } else {
+      // Total overview data
+      const totalProduction = Object.values(accessData).reduce((sum, data) => sum + data.production, 0);
+      const totalRuleValidation = Object.values(accessData).reduce((sum, data) => sum + data.ruleValidation, 0);
+      const totalManual = Object.values(accessData).reduce((sum, data) => sum + data.manualMatch, 0);
+      
+      return [
+        { name: 'Production', value: totalProduction, fill: '#10B981' },
+        { name: 'Rule Valid.', value: totalRuleValidation, fill: '#F59E0B' },
+        { name: 'Manual', value: totalManual, fill: '#6B7280' }
+      ].filter(item => item.value > 0);
+    }
+  };
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
+      const data = payload[0];
       return (
         <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-medium text-gray-900 mb-2">{label}</p>
-          {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {entry.name}: {entry.value}
-            </p>
-          ))}
+          <p className="font-medium text-gray-900">{data.name}</p>
+          <p className="text-sm" style={{ color: data.payload.fill }}>
+            Value: {data.value}
+          </p>
         </div>
       );
     }
@@ -94,32 +109,53 @@ const ClientAccessCard = () => {
       </div>
 
       <div className="mb-6">
-        <h3 className="text-sm font-medium text-gray-700 mb-4">Records Status by Client</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-medium text-gray-700">
+            {selectedClient ? `${selectedClient} Status Distribution` : 'Total Status Distribution'}
+          </h3>
+          {selectedClient && (
+            <button 
+              onClick={() => setSelectedClient(null)}
+              className="text-xs text-blue-600 hover:text-blue-700 underline"
+            >
+              Back to Total View
+            </button>
+          )}
+        </div>
         <div className="h-64 mb-4">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis 
-                dataKey="name" 
-                tick={{ fontSize: 12 }}
-                angle={-45}
-                textAnchor="end"
-                height={60}
-              />
-              <YAxis tick={{ fontSize: 12 }} />
+            <PieChart>
+              <Pie
+                data={getPieChartData()}
+                cx="50%"
+                cy="50%"
+                innerRadius={40}
+                outerRadius={80}
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {getPieChartData().map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
               <Tooltip content={<CustomTooltip />} />
               <Legend />
-              <Bar dataKey="production" fill="#10B981" name="Production" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="ruleValidation" fill="#F59E0B" name="Rule Validation" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="manualMatch" fill="#6B7280" name="Manual Match" radius={[2, 2, 0, 0]} />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {Object.entries(accessData).map(([clientName, data]) => (
-          <div key={clientName} className="border border-gray-200 rounded-lg p-4">
+          <div 
+            key={clientName} 
+            className={`border rounded-lg p-4 cursor-pointer transition-all ${
+              selectedClient === clientName 
+                ? 'border-blue-500 bg-blue-50' 
+                : 'border-gray-200 hover:border-gray-300'
+            }`}
+            onClick={() => setSelectedClient(clientName)}
+          >
             <div className="border-l-4 border-blue-500 pl-3 mb-3">
               <h4 className="text-sm font-medium text-gray-900">{clientName}</h4>
             </div>

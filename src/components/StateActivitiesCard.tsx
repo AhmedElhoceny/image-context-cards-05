@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
 
@@ -157,9 +156,6 @@ const StateActivitiesCard = () => {
                               {rep.licensed ? 'Licensed' : 'Not Licensed'}
                             </span>
                           </div>
-                          <p className="text-xs text-gray-600">
-                            {rep.totalVisits} total visits • {rep.uniqueClients} unique clients
-                          </p>
                         </div>
                         <div className="text-right">
                           <p className="text-lg font-semibold text-gray-900">{rep.visitDays}</p>
