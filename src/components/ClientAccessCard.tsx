@@ -1,9 +1,25 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
 const ClientAccessCard = () => {
   const [selectedClient, setSelectedClient] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Handle clicking outside to reset to total view
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        if (selectedClient) {
+          setSelectedClient(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [selectedClient]);
 
   const accessData = {
     GenPay: {
@@ -81,7 +97,7 @@ const ClientAccessCard = () => {
   const totalPending = Object.values(accessData).reduce((sum, data) => sum + data.ruleValidation + data.manualMatch, 0);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div ref={containerRef} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-medium text-gray-900">Client Access Overview</h2>
         <div className="flex items-center space-x-4">

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardNav from '../components/DashboardNav';
@@ -44,15 +43,15 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Client Access and Activities Row - Reversed Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Client Access - Now on Left */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+        {/* Client Access and Activities Row - Updated Width Ratio */}
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-6">
+          {/* Client Access - 60% width */}
+          <div className="lg:col-span-6 bg-white rounded-xl shadow-sm border border-gray-100">
             <ClientAccessCard />
           </div>
 
-          {/* Activities - Now on Right */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          {/* Activities - 40% width */}
+          <div className="lg:col-span-4 bg-white rounded-xl shadow-sm border border-gray-100">
             <StateActivitiesCard />
           </div>
         </div>
